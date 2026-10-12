@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Thank You | V2R{% endblock %}
+
+{% block content %}
+<section class="section page-form">
+  <div class="container container--narrow">
+    <h1 class="section-title">Thank You</h1>
+    <p class="muted">Your review has been submitted and is awaiting moderation. We appreciate your feedback.</p>
+    <a class="btn btn--primary" href="{% url 'home' %}">Back to home</a>
+  </div>
+</section>
+{% endblock %}

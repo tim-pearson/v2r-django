@@ -1,0 +1,33 @@
+{% load static %}
+{% load v2r_tags %}
+<section class="work section" id="work">
+  <div class="container">
+    <div class="work-head">
+      <h2 class="section-title">Our Recent Work</h2>
+      <a class="btn btn--primary" href="{% url 'generic_page' 'projects' %}">View All Projects</a>
+      <!-- TODO: real target for View All Projects -->
+    </div>
+    <div class="work-mosaic">
+      <div class="work-tiles">
+        {% for item in work_tiles %}
+        <figure class="work-tile">
+          {% if item.ok %}
+            <img src="{% static item.image %}" alt="{{ item.title }}">
+          {% else %}
+            <div class="work-placeholder">{{ item.title }}</div>
+          {% endif %}
+          <figcaption class="work-label">{{ item.title }}</figcaption>
+        </figure>
+        {% endfor %}
+      </div>
+      <figure class="work-tile work-tile--featured">
+        {% if featured.ok %}
+          <img src="{% static featured.image %}" alt="{{ featured.title }}">
+        {% else %}
+          <div class="work-placeholder">{{ featured.title }}</div>
+        {% endif %}
+        <figcaption class="work-label work-label--large">{{ featured.title }}</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

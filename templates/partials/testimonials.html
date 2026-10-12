@@ -1,0 +1,31 @@
+{% load v2r_tags %}
+<section class="testimonials section" id="testimonials">
+  <div class="container">
+    <h2 class="section-title">What Our Clients Say</h2>
+    {% if reviews %}
+    <div class="t-carousel" id="t-carousel">
+      <div class="t-track" id="t-track">
+        {% for review in reviews %}
+        <article class="t-card{% if forloop.counter == 2 %} is-active{% endif %}" data-index="{{ forloop.counter0 }}">
+          <div class="t-head">
+            <span class="t-avatar" aria-hidden="true">{{ review.name|first|upper }}</span>
+            <div class="t-id">
+              <strong class="t-name">{{ review.name }}</strong>
+              <span class="t-role">{{ review.role }}</span>
+            </div>
+          </div>
+          <p class="t-text">{{ review.text }}</p>
+          <button class="t-quote" type="button" aria-hidden="true" tabindex="-1">
+            <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z"/></svg>
+          </button>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="t-dots" id="t-dots" aria-hidden="true"></div>
+    {% else %}
+      <p class="muted">No reviews yet. Be the first to <a href="{% url 'review_form' %}">write one</a>.</p>
+    {% endif %}
+    <p class="t-cta"><a href="{% url 'review_form' %}">Write a review</a></p>
+  </div>
+</section>

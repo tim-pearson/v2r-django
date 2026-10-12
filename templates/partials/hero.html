@@ -1,0 +1,28 @@
+{% load static %}
+{% load v2r_tags %}
+<section class="hero" id="home">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide is-active" style="background-image:url('{% static 'img/hero-1.jpg' %}')"></div>
+    <div class="hero-slide" style="background-image:url('{% static 'img/hero-2.jpg' %}')"></div>
+    <div class="hero-slide" style="background-image:url('{% static 'img/hero-3.jpg' %}')"></div>
+    <div class="hero-slide" style="background-image:url('{% static 'img/hero-4.jpg' %}')"></div>
+    <!-- TODO: replace with client photos -->
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <h1 class="hero-title">{% site_text "hero.title" %}</h1>
+    <div class="hero-buttons">
+      <a class="btn btn--primary" href="#services">Our Services</a>
+      <a class="btn btn--secondary" href="#experience">Areas of Expertise</a>
+    </div>
+    <div class="hero-dots" id="hero-dots" aria-hidden="true">
+      <span class="dot is-active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+  <a class="hero-scroll" href="#about" aria-label="Scroll to About">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 16l-6-6h12z"/></svg>
+  </a>
+</section>

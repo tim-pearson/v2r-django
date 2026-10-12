@@ -1,0 +1,8 @@
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# RUF012: Django idioms (list_display, Meta.ordering, actions) use mutable
+# class attributes intentionally.
+ignore = ["RUF012"]

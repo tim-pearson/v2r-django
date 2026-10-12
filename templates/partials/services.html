@@ -1,0 +1,24 @@
+{% load v2r_tags %}
+<section class="services section" id="services">
+  <div class="container">
+    <h2 class="section-title">We Offer Services in The Following Areas</h2>
+    <div class="card-grid">
+      {% for card in services %}
+      <article class="service-card">
+        <h3 class="card-head">{{ card.title }}</h3>
+        <span class="card-notch" aria-hidden="true"></span>
+        <div class="card-body">
+          <p class="card-sub">{{ card.subheading }}</p>
+          <ul class="card-list">
+            {% for item in card.items %}<li>{{ item }}</li>{% endfor %}
+          </ul>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="section-cta">
+      <a class="btn btn--primary" href="{% url 'generic_page' 'services' %}">View All</a>
+      <!-- TODO: real target for View All -->
+    </div>
+  </div>
+</section>

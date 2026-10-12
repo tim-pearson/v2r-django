@@ -1,0 +1,6 @@
+Django==5.2.18
+Pillow==12.3.0
+djangoql==0.19.1
+whitenoise==6.12.0
+# Optional dev tooling (not needed to run the site):
+# ruff, pyright

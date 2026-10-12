@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Write a Review | V2R{% endblock %}
+
+{% block content %}
+<section class="section page-form">
+  <div class="container container--narrow">
+    <h1 class="section-title">Write a Review</h1>
+    <p class="muted">We'd love to hear about your experience working with V2R.</p>
+    <form class="contact-form" method="post" action="{% url 'review_form' %}">
+      {% csrf_token %}
+      {{ form.website }}
+      {% for field in form %}
+        {% if field.name != "website" %}
+          <div class="form-field">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+      <button class="btn btn--primary" type="submit">Submit Review</button>
+    </form>
+    <p class="muted"><a href="{% url 'home' %}">Back to home</a></p>
+  </div>
+</section>
+{% endblock %}

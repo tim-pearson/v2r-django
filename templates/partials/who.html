@@ -1,0 +1,15 @@
+{% load v2r_tags %}
+<section class="who section" id="who">
+  <div class="container">
+    <h2 class="section-title">Who We Serve</h2>
+    <div class="who-intro">{% site_text "who.intro" %}</div>
+    <ul class="who-list">
+      {% for type in who %}
+      <li class="who-item">
+        <svg class="icon icon--check" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 16.2l-3.5-3.5L4 14l5 5 11-11-1.5-1.5z"/></svg>
+        {{ type }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

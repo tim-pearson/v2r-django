@@ -1,0 +1,13 @@
+{% load static %}
+{% load v2r_tags %}
+<section class="about section" id="about">
+  <div class="about-bg" style="background-image:url('{% static 'img/about.jpg' %}')"></div>
+  <!-- TODO: replace with client photo -->
+  <div class="about-overlay"></div>
+  <div class="container about-content">
+    <h2 class="about-title">About V2R</h2>
+    <div class="about-text">{% site_text "about.body" %}</div>
+    <a class="btn btn--primary" href="{% url 'generic_page' 'about' %}">Learn More</a>
+    <!-- TODO: real target for Learn More -->
+  </div>
+</section>

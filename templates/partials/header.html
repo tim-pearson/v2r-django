@@ -1,0 +1,38 @@
+{% load static %}
+{% load v2r_tags %}
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="{% url 'home' %}#home">
+      <span class="logo-text"><span class="logo-v">V</span>2R</span>
+      <span class="logo-caption">Virtual to Reality</span>
+    </a>
+
+    <div class="header-center">
+      <p class="header-title">Project Management &amp; Support Services</p>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="{% url 'home' %}#home">Home</a></li>
+          <li><a href="{% url 'home' %}#about">About</a></li>
+          <li><a href="{% url 'home' %}#services">Services</a></li>
+          <li><a href="{% url 'home' %}#who">Who We Serve</a></li>
+          <li><a href="{% url 'home' %}#experience">Areas of Experience</a></li>
+          <li><a href="{% url 'home' %}#contact">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <p class="header-tagline">
+        <svg class="icon icon--small" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2h9l5 5v15H6V2zm8 1.5V8h4.5L14 3.5zM8 4v16h10V10h-6V4H8z"/></svg>
+        {% site_text "header.tagline" plain %}
+      </p>
+      {% include 'partials/social_icons.html' %}
+    </div>
+
+    <button class="menu-btn" id="menu-btn" aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+      <span class="menu-btn-bar"></span>
+      <span class="menu-btn-bar"></span>
+      <span class="menu-btn-bar"></span>
+    </button>
+  </div>
+</header>
