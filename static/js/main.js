@@ -105,7 +105,7 @@
   /* ---------- Scrollspy (nav active state) ---------- */
   var navLinks = document.querySelectorAll(".main-nav a, .drawer-nav a");
   if (navLinks.length) {
-    var ids = ["home", "about", "services", "who", "experience", "contact"];
+    var ids = ["home", "about", "services", "who", "experience", "careers", "contact"];
     function spy() {
       var active = "home";
       ids.forEach(function (id) {
