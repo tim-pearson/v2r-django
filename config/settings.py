@@ -7,6 +7,23 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+def _load_dotenv(path: Path) -> None:
+    """Tiny .env loader: KEY=VALUE lines, # comments, no override of real env vars."""
+    if not path.exists():
+        return
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key, value = key.strip(), value.strip().strip("'\"")
+        if key and key not in os.environ:
+            os.environ.setdefault(key, value)
+
+
+_load_dotenv(BASE_DIR / ".env")
+
 # Environment-driven settings with safe dev defaults.
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-dev-only-key-do-not-use")
 DEBUG = os.environ.get("DJANGO_DEBUG", "true").lower() in {"1", "true", "yes"}
@@ -24,6 +41,7 @@ SHOW_TEXT_REFS = os.environ.get("DJANGO_SHOW_TEXT_REFS", str(DEBUG)).lower() in 
 # Absolute base URL (scheme + host) of the deployed site. Used to build full
 # admin links in the reference badges. Current dev host is 127.0.0.1:8000.
 HOSTED_URL = os.environ.get("HOSTED_URL", "http://127.0.0.1:8000").rstrip("/")
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
