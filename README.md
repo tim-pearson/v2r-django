@@ -35,6 +35,7 @@ Then log in at `/admin/` and edit the SiteText rows.
 | `DJANGO_DEBUG` | `true` | Debug mode. |
 | `DJANGO_ALLOWED_HOSTS` | `*` | Comma-separated host list. |
 | `DJANGO_SHOW_TEXT_REFS` | same as DEBUG | Reference badges on/off. |
+| `HOSTED_URL` | `http://127.0.0.1:8000` | Absolute base URL used to build full admin links in the reference badges. |
 
 ## The reference tag (`{% site_text %}`)
 
@@ -42,19 +43,19 @@ Long editable texts render through `core/templatetags/v2r_tags.py`:
 
 ```
 {% site_text "about.body" %}
-{% site_text "header.tagline" plain %}   # no badge
+{% site_text "header.tagline" plain %}   # force plain, never a badge (e.g. inside an href)
 ```
 
-- When `SHOW_TEXT_REFS` is on (default in dev), long texts are wrapped in a
-  `span.text-ref` with a small blue badge `[key]` that links straight to the
-  SiteText's admin change page. The client sees the reference, clicks it, edits.
-- When off, it outputs plain text only.
-- `plain` never shows a badge (use it for short values: tagline, work hours,
-  contact details).
+- When `SHOW_TEXT_REFS` is on (default in dev) AND the SiteText has a **non-empty
+  label**, the text is wrapped in a `span.text-ref` with a small blue badge `[key]`
+  that links straight to that SiteText's admin change page. The badge opens in a new
+  tab and uses `HOSTED_URL` + the admin path (e.g.
+  `http://127.0.0.1:8000/admin/core/sitetext/7/change/`), so it works wherever the
+  site is hosted. Set `HOSTED_URL` to the deployed host in production.
+- When refs are off, or the SiteText has no label, it outputs plain text only.
+- `plain` never shows a badge (used for values rendered inside attributes such as the
+  social URLs).
 - A missing key renders a visible `[text missing: key]` placeholder, never crashes.
-
-Badge is intended only for the long texts:
-`hero.title`, `about.body`, `who.intro`, `careers.body`, `page.terms.body`, `page.privacy.body`.
 
 ## Models
 

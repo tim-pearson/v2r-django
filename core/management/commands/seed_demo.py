@@ -49,6 +49,16 @@ SHORT_TEXTS = {
     "contact.whatsapp_url": "https://wa.me/0553472406",
 }
 
+SHORT_LABELS = {
+    "header.tagline": "Header tagline",
+    "footer.work_hours": "Footer work hours",
+    "contact.address": "Contact address",
+    "contact.phone": "Contact phone",
+    "contact.email": "Contact email",
+    "contact.linkedin_url": "Contact LinkedIn URL",
+    "contact.whatsapp_url": "Contact WhatsApp URL",
+}
+
 REVIEWS = [
     (
         "Ahmed Al Mansoori",
@@ -113,7 +123,9 @@ class Command(BaseCommand):
                 key=key, defaults={"label": label, "text": LONG_TEXTS[key]}
             )
         for key, text in SHORT_TEXTS.items():
-            SiteText.objects.update_or_create(key=key, defaults={"text": text})
+            SiteText.objects.update_or_create(
+                key=key, defaults={"text": text, "label": SHORT_LABELS.get(key, "")}
+            )
 
         for name, role, published, text in REVIEWS:
             Review.objects.update_or_create(

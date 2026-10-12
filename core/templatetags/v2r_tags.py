@@ -19,13 +19,20 @@ def _render(key, plain):
         body = escape(_MISSING.format(key=key))
         if plain or not show_refs:
             return body
-        url = reverse("admin:core_sitetext_add")
-        badge = f'<a class="text-ref-badge" href="{url}" title="Create this text in the admin">[{key}]</a>'
+        url = f"{settings.HOSTED_URL}{reverse('admin:core_sitetext_add')}"
+        badge = (
+            f'<a class="text-ref-badge" href="{url}" target="_blank" rel="noopener" '
+            f'title="Create this text in the admin">[{key}]</a>'
+        )
         return mark_safe(f'<span class="text-ref text-ref--missing">{badge} {body}</span>')
-    if plain or not show_refs:
+    # Badge only when SHOW_TEXT_REFS is on AND the text has a non-empty label.
+    if plain or not show_refs or not text.label:
         return escape(text.text)
-    url = reverse("admin:core_sitetext_change", args=[text.pk])
-    badge = f'<a class="text-ref-badge" href="{url}" title="Edit this text in the admin">[{text.key}]</a>'
+    url = f"{settings.HOSTED_URL}{reverse('admin:core_sitetext_change', args=[text.pk])}"
+    badge = (
+        f'<a class="text-ref-badge" href="{url}" target="_blank" rel="noopener" '
+        f'title="Edit this text in the admin">[{text.key}]</a>'
+    )
     return mark_safe(f'<span class="text-ref">{escape(text.text)} {badge}</span>')
 
 

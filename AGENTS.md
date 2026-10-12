@@ -24,20 +24,24 @@ Service/Experience cards are HARDCODED (a small list of dicts in `views.py` or t
 template), not in the DB. Images are static files I add myself under `static/img/`.
 
 ## SiteText keys
-Long texts, rendered with the reference badge:
-`hero.title`, `about.body`, `who.intro`, `careers.body`, `page.terms.body`, `page.privacy.body`
-Short values, rendered plain (no badge): `header.tagline`, `footer.work_hours`,
-`contact.address`, `contact.phone`, `contact.email`, `contact.linkedin_url`, `contact.whatsapp_url`
+`hero.title`, `about.body`, `who.intro`, `careers.body`, `page.terms.body`,
+`page.privacy.body`, `header.tagline`, `footer.work_hours`, `contact.address`,
+`contact.phone`, `contact.email`, `contact.linkedin_url`, `contact.whatsapp_url`.
+Which ones show a reference badge is controlled by the `label` field, not by the key:
+any SiteText with a non-empty `label` gets a badge when `SHOW_TEXT_REFS` is on.
 
 ## Reference tag feature
 `{% site_text "about.body" %}` is in `core/templatetags/v2r_tags.py`.
-- When `settings.SHOW_TEXT_REFS` is True (default = DEBUG), it wraps the text in
-  `<span class="text-ref">` plus a small badge showing the key, linking to the admin
-  change page for that SiteText. The client sees the reference, opens the admin and edits.
-- When False, it outputs plain text only.
+- When `settings.SHOW_TEXT_REFS` is True (default = DEBUG) AND the SiteText has a
+  non-empty `label`, it wraps the text in `<span class="text-ref">` plus a small
+  badge showing the key, linking to the admin change page for that SiteText. The
+  client sees the reference, opens the admin and edits.
+- The badge opens in a new tab and uses `settings.HOSTED_URL` (env var `HOSTED_URL`,
+  default `http://127.0.0.1:8000`) plus the admin path, so it resolves from any host.
+- When False, or when the SiteText has no label, it outputs plain text only.
 - A missing key renders a visible placeholder, never a crash.
-- `{% site_text "key" plain %}` never shows a badge.
-- Only use the badge for the long texts above, not everywhere.
+- `{% site_text "key" plain %}` never shows a badge (use inside href attributes,
+  e.g. the social URLs).
 
 ## Pages
 - Home is one scrolling page with anchored sections: Home, About, Services, Who We Serve,

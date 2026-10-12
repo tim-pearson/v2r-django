@@ -32,7 +32,7 @@ class ReviewTests(TestCase):
 
 class SiteTextTagTests(TestCase):
     def setUp(self):
-        SiteText.objects.create(key="about.body", text="About copy text")
+        SiteText.objects.create(key="about.body", label="About body", text="About copy text")
         self.tagged = Template('{% load v2r_tags %}{% site_text "about.body" %}')
 
     def test_badge_shown_when_refs_on(self):
@@ -40,6 +40,24 @@ class SiteTextTagTests(TestCase):
             html = self.tagged.render(Context({}))
         self.assertIn("text-ref-badge", html)
         self.assertIn("[about.body]", html)
+
+    def test_badge_links_absolute_admin_url_in_new_tab(self):
+        site = SiteText.objects.get(key="about.body")
+        with override_settings(SHOW_TEXT_REFS=True, HOSTED_URL="http://example.test"):
+            html = self.tagged.render(Context({}))
+        self.assertIn(
+            f'href="http://example.test/admin/core/sitetext/{site.pk}/change/"',
+            html,
+        )
+        self.assertIn('target="_blank"', html)
+
+    def test_unlabeled_text_has_no_badge(self):
+        SiteText.objects.create(key="footer.note", text="Some text")
+        t = Template('{% load v2r_tags %}{% site_text "footer.note" %}')
+        with override_settings(SHOW_TEXT_REFS=True):
+            html = t.render(Context({}))
+        self.assertNotIn("text-ref-badge", html)
+        self.assertIn("Some text", html)
 
     def test_plain_when_refs_off(self):
         with override_settings(SHOW_TEXT_REFS=False):

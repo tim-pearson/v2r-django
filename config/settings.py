@@ -21,6 +21,10 @@ SHOW_TEXT_REFS = os.environ.get("DJANGO_SHOW_TEXT_REFS", str(DEBUG)).lower() in 
     "yes",
 }
 
+# Absolute base URL (scheme + host) of the deployed site. Used to build full
+# admin links in the reference badges. Current dev host is 127.0.0.1:8000.
+HOSTED_URL = os.environ.get("HOSTED_URL", "http://127.0.0.1:8000").rstrip("/")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
