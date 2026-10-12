@@ -1,0 +1,11 @@
+services:
+  django:
+    build: .
+    container_name: v2r-django
+    restart: unless-stopped
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "127.0.0.1:2547:8000"
+    volumes:
+      - .:/app
+
